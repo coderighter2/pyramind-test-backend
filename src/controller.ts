@@ -2,10 +2,12 @@ import { Boat, Condition, DefaultCondition, BoatStatus } from './boat';
 
 export function maxStonesAmount(condition: Condition = DefaultCondition) {
   let stoneAmount = 0;
+  // init boats with total boats count
   let boats = new Array<Boat>();
   for (let i = 0; i < condition.boatsCount; i++) {
     boats.push(new Boat())
   }
+  // calculate stone amount for each minutes
   for (let time = 0; time <= condition.totalTime; time++) {
     boats.forEach((_, i) => {
       boats[i].time -= 1;
@@ -14,13 +16,14 @@ export function maxStonesAmount(condition: Condition = DefaultCondition) {
           stoneAmount += 1;
         }
       }
+      // update boat status in each minutes
       boats[i].updatedBoatStatusOnTime(condition)
     })
     updateBoatsForRiverStatus(boats, condition)
   }
   return stoneAmount
 }
-
+// update boat status if boats arrive to mining site or pyramid
 function updateBoatsForRiverStatus(boats: Boat[], condition: Condition) {
   const reiverInUse = boats.filter((boat) => (boat.status === BoatStatus.COMINGIN || boat.status === BoatStatus.GOINGOUT) && boat.time > 0).length > 0
   if (!reiverInUse) {
