@@ -42,15 +42,15 @@ export class Boat {
       if (this.status === BoatStatus.WAITING) {
         // Do nothing
       } else if (this.status === BoatStatus.GOINGOUT) {
-        this.status = BoatStatus.LOADING;
-        this.time = condition.loadTime * condition.carryUp;
+        this.status = BoatStatus.LOADING
+        this.time = condition.loadTime * condition.carryUp
       } else if (this.status === BoatStatus.LOADING) {
         // do nothing
       } else if (this.status === BoatStatus.COMINGIN) {
-        this.status = BoatStatus.UNLOADING;
-        this.time = condition.unloadTime * condition.carryUp;
+        this.status = BoatStatus.UNLOADING
+        this.time = condition.unloadTime * condition.carryUp
       } else if (this.status === BoatStatus.UNLOADING) {
-        this.status = BoatStatus.WAITING;
+        this.status = BoatStatus.WAITING
       }
     }
   }

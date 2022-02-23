@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import * as Controller from './controller'
-import { DefaultCondition } from './boat';
+import { DefaultCondition } from './boat'
 
 export class Routes {
 

@@ -15,3 +15,6 @@ app.listen(port, () => {
   console.log(`Backend Test app listening on port ${port}`)
 })
 
+export default app;
+
+
