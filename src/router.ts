@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import * as Controller from './controller'
+import { DefaultCondition } from './boat';
 
 export class Routes {
 
@@ -7,9 +8,21 @@ export class Routes {
 
   constructor() {
     this.router = Router()
-    this.router.use('/stones-amount', (_, res) => {
+    this.router.use('/stones-amount', (req, res) => {
+      const { totalTime, loadTime, unloadTime, boatsCount, locationTime } = req.query
+      if (!totalTime || !loadTime || !unloadTime || !boatsCount || !locationTime) {
+        return res.status(500).send('Invalid Params')
+      }
       return res.status(200).json({
-        amount: Controller.maxStonesAmount(),
+        amount: Controller.maxStonesAmount({
+          totalTime: +totalTime,
+          loadTime: +loadTime,
+          unloadTime: +unloadTime,
+          boatsCount: +boatsCount,
+          locationTime: +locationTime,
+          carryUp: DefaultCondition.carryUp,
+          boatInRiver: DefaultCondition.boatInRiver
+        }),
         success: true
       })
     })
